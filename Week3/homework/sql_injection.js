@@ -18,18 +18,18 @@ conn.connect(err => {
 
 
 function getPopulation(name, code, cb) {
-  // solution with question mark syntax
-//   conn.query(
-//     `SELECT Population FROM Country WHERE Name = ? and code = ?`,
-//     [name, code],
-//     function (err, result) {
-//       if (err) cb(err);
-//       if (result.length == 0) cb(new Error('Not found'));
-//       cb(null, result);
-//     },
-//   );
+  //! solution with question mark syntax
+  /* conn.query(
+    `SELECT Population FROM Country WHERE Name = ? and code = ?`,
+    [name, code],
+    function (err, result) {
+      if (err) cb(err);
+      if (result.length == 0) cb(new Error('Not found'));
+      cb(null, result);
+    },
+  ); */
 
-// solution with escape method
+//! solution with escape method
   conn.query(
     `SELECT Population FROM Country WHERE Name = ` +
       conn.escape(name) +
@@ -43,4 +43,5 @@ function getPopulation(name, code, cb) {
   );
 }
 
-getPopulation('Armenia', 'ARM', (err, res) => console.log(res));
+// Example for the taking advantage of SQL-injection with the old version of the code
+getPopulation('"Country" OR 1=1', '"ABC" OR 1=1', cb);
