@@ -18,10 +18,10 @@ const execQuery = query => {
 
 function seedDatabase() {
     const AUTHORS_AND_MENTORS = `
-    SELECT first.author_name as author, second.author_name as mentor 
-    FROM authors as first
-    INNER JOIN authors as second
-    on second.author_no = first.mentor
+    SELECT A1.author_name as author, A2.author_name as mentor 
+    FROM authors as A1
+    INNER JOIN authors as A2
+    on A2.author_no = A1.mentor
     order by mentor;`;
     
     const AUTHORS_AND_PAPERS = `
@@ -31,6 +31,14 @@ function seedDatabase() {
     on a.author_no = joint.author_id
     left join research_papers as papers
     on joint.paper_id = papers.paper_id;`;
+    
+    // As you can see the output below this query already brings the paperless authors.
+// | (index) │         author_name         │                            paper_title                             │
+// ├─────────┼─────────────────────────────┼────────────────────────────────────────────────────────────────────┤
+// │    0    │     'Francesca Orsini'      │                                null                                │
+// │    1    │        'Haun Saussy'        │            'Literature and Religion for the Humanities'            │
+// │    2    │        'Haun Saussy'        │            "Divisions of Labor: Between Cheah's Worlds"            |
+
 
   connection.connect();
 

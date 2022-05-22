@@ -40,17 +40,28 @@ function seedDatabase() {
         FROM authors
         GROUP BY university;`;
 
-  const PAPERS_PER_UNIVERSITY = `
-    WITH uni_papers AS (
-        SELECT university, COUNT(paper_id) AS num
+  const PAPERS_PER_UNIVERSITY = `SELECT authors.university, COUNT(authors.author_name)
             FROM authors
-                INNER JOIN research_papers_authors AS joint 
-                ON author_no = author_id
-                GROUP BY author_id , university
-                ORDER BY university)
-        SELECT university, SUM(num) as num_of_papers
-            FROM uni_papers
-            GROUP BY university;`;
+            INNER JOIN research_papers_authors 
+              ON (authors.author_no = research_papers_authors.author_id)
+            INNER JOIN research_papers 
+              ON (research_papers.paper_id = research_papers_authors.paper_id)
+            GROUP BY authors.university
+            ORDER BY authors.university;`;
+   
+    // const PAPERS_PER_UNIVERSITY =   ` 
+    //     WITH uni_papers AS (
+    //     SELECT university, COUNT(paper_id) AS Sum_Of_Papers
+    //         FROM authors
+    //             INNER JOIN research_papers_authors AS joint 
+    //             ON author_no = author_id
+    //             GROUP BY author_id , university
+    //             ORDER BY university)
+    //     SELECT university, SUM(num) as num_of_papers
+    //         FROM uni_papers
+    //         GROUP BY university;`;
+
+            
 
   const MIN_AND_MAX_H_INDEX = `
     SELECT university, MIN(h_index) as min, MAX(h_index) as max
