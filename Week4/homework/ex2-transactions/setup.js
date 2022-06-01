@@ -2,20 +2,16 @@ const {MongoClient, ObjectId} = require('mongodb');
 require('dotenv').config();
 
 async function main() {
-    if (process.env.MONGODB_URL == null) {
-        throw Error(
-          `You did not set up the environment variables correctly.`,
-        );
-      }
-      const client = new MongoClient(process.env.MONGODB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+  if (process.env.MONGODB_URL == null) {
+    throw Error(`You did not set up the environment variables correctly.`);
+  }
+  const client = new MongoClient(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
   try {
-    await client.connect();
-
-    await createAccountInformation(client, [
+    const accountsInfo = [
       {
         account_number: 101,
         balance: 10000,
@@ -27,7 +23,7 @@ async function main() {
             remark: 'Going EFT',
           },
           {
-            change_number:2,
+            change_number: 2,
             amount: 900,
             changed_date: '2022-10-14',
             remark: 'Going EFT',
@@ -101,7 +97,10 @@ async function main() {
           },
         ],
       },
-    ]);
+    ];
+
+    await client.connect();
+    await createAccountInformation(client, accountsInfo);
   } catch (e) {
     console.error(e);
   } finally {
