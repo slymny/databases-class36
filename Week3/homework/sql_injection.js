@@ -16,25 +16,10 @@ conn.connect(err => {
   console.log('Database connected...');
 });
 
-
-function getPopulation(name, code, cb) {
-  //! solution with question mark syntax
-  /* conn.query(
-    `SELECT Population FROM Country WHERE Name = ? and code = ?`,
-    [name, code],
-    function (err, result) {
-      if (err) cb(err);
-      if (result.length == 0) cb(new Error('Not found'));
-      cb(null, result);
-    },
-  ); */
-
-//! solution with escape method
+function getPopulation(Country, name, code, cb) {
   conn.query(
-    `SELECT Population FROM Country WHERE Name = ` +
-      conn.escape(name) +
-      ` and code = ` +
-      conn.escape(code),
+    `SELECT Population FROM ? WHERE Name = ? and code = ?`,
+    [Country, name, code],
     function (err, result) {
       if (err) cb(err);
       if (result.length == 0) cb(new Error('Not found'));
