@@ -11,11 +11,9 @@ const connection = mysql.createConnection({
 const execQuery = util.promisify(connection.query.bind(connection));
 
 async function seedDatabase() {
-  connection.beginTransactionAsync();
-
+  connection.beginTransaction();
+  
   try {
-    await execQuery('START TRANSACTION');
-
     await execQuery(
       `UPDATE accounts 
       SET balance = (accounts.balance - 1000) 
