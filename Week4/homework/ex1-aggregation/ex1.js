@@ -1,3 +1,6 @@
+// The code to seed the collection:
+// mongoimport --uri mongodb+srv://hyfuser:hyfpassword@cluster0.6tl1r.mongodb.net/databaseWeek4 --collection population --type csv --file population_pyramid_1950-2022.csv --headerline
+
 const {MongoClient} = require('mongodb');
 require('dotenv').config();
 
