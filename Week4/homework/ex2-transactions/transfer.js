@@ -103,14 +103,7 @@ async function createTransfer(client, from, to, amount) {
 }
 
 async function createTransferDocument(collection, account_number, amount, remark) {
-  let date = new Date();
-  const [month, day, year] = [
-    date.getMonth(),
-    date.getDate(),
-    date.getFullYear(),
-  ];
-  const changed_date = `${year}-${month}-${day}`;
-
+  let changed_date = new Date();
   const length = await collection.findOne({account_number});
   const changed_number = length.account_changes.length + 1;
 
