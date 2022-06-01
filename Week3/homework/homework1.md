@@ -1,7 +1,9 @@
 # Answers of exercise 1: Normalization
 
-1. First of all in 1NF every column needs to have only have one value and value type. In this perspective dinner_date column has different data type. some rows have date data type, some strings. 
-The other violation of 1NF is on the food_code and food_description columns. These columns have more than one value in every rows.
+1. Violations of 1NF
+dinner_date --> Every column needs to have only have one value and value type. In this perspective dinner_date column has different data type. Some rows have date data type, some strings.
+food_code and food_description --> In the food_code and food_description columns have more than one value in every rows.
+member_id --> In the member_id column values are not unique.
 
 2. The entities from the table are:
     - member,
