@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
 const execQuery = util.promisify(connection.query.bind(connection));
 
 async function seedDatabase() {
-  connection.connect();
+  connection.beginTransactionAsync();
 
   try {
     await execQuery('START TRANSACTION');
